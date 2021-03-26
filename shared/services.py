@@ -101,13 +101,3 @@ def extract_dataframes(df1, df2, alias1, alias2, drop_column):
                                           "leftouter").select(columns)
 
     return new_df
-
-#     df1 = df1.drop(col(drop_column))
-#     df2 = df2.drop(col(drop_column))
-#     except_df = df1.exceptAll(df2)
-#     except_df.show()
-#
-#     columns = [alias1+'.train_name', 'extract_df.d1', 'extract_df.d2', 'status']
-#     final_df = except_df.alias(alias1).join(df2.alias(alias2), col(alias1+".train_name") == col(alias2+".train_name"),
-#                                      "leftouter").select(columns)
-#     return final_df
