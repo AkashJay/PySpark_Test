@@ -1,10 +1,10 @@
 import shared.services as shared_services
 import sys
+from pyspark.sql import DataFrame
 
 if __name__ == '__main__':
     # Create Logger object
     logger = shared_services.get_logger()
-
     logger.info("Application Started..")
 
     # Create Spark Session
@@ -26,8 +26,13 @@ if __name__ == '__main__':
     # Convert RDD into a Dataframe
     logger.info("def rdd_to_df invoked")
     schema = ["train_name", "d1", "d2", "status"]
-    df_sl = shared_services.rdd_to_df(rdd_sl, schema)
-    df_in = shared_services.rdd_to_df(rdd_in, schema)
+    df_sl: DataFrame = shared_services.rdd_to_df(rdd_sl, schema)
+    df_in: DataFrame = shared_services.rdd_to_df(rdd_in, schema)
+
+    logger.info("def rdd_to_df invoked")
+    exceptDF = shared_services.extract_dataframes(df_in, df_sl, "alias1", "alias2", "status")
+    exceptDF.printSchema()
+    exceptDF.show()
 
     # Union dataframes
     dfs = {df_sl, df_in}
